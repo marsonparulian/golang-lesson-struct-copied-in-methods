@@ -20,9 +20,9 @@ func (lib *library) addABook(book book) {
 
 // Method below is mimicking time consuming operation.
 // Method below is a Value receiver type.
-func (lib library) timeConsumingOperation() {
+func (lib *library) timeConsumingOperation() {
 	// `Sleep` to mimick ` time-consuming operation.
-	time.Sleep(5 * time.Millisecond)
+	time.Sleep(30 * time.Millisecond)
 
 	// Check the number of books
 	fmt.Printf("Value receiver type. Found %d books.\n", len(lib.books))
