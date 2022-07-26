@@ -2,16 +2,33 @@ package main
 
 import (
 	"fmt"
-
-	"github.com/marsonparulian/golang-lesson-struct-copied-in-methods/library"
 )
 
+type book struct {
+	title string
+}
+
+// Change the title of a book
+func (b book) changeTitle(title string) {
+	b.title = title
+}
+
+type library struct {
+	books []book
+}
+
+func (lib library) addABook(book book) {
+	lib.books = append(lib.books, book)
+}
+
 func main() {
-	lib := library.Library{}
+	lib := library{}
 
 	fmt.Println(lib)
 
-	lib.AddABook(library.Book{Title: "Big Brown Bear"})
+	b := book{title: "Three little pigs"}
+	b.changeTitle("Blue Birds")
+	lib.addABook(b)
 
 	fmt.Println(lib)
 }
