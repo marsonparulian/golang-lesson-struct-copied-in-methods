@@ -2,33 +2,44 @@ package main
 
 import (
 	"fmt"
+	"time"
 )
 
 type book struct {
 	title string
 }
 
-// Change the title of a book
-func (b book) changeTitle(title string) {
-	b.title = title
-}
-
 type library struct {
 	books []book
 }
 
-func (lib library) addABook(book book) {
+func (lib *library) addABook(book book) {
+	fmt.Printf("Add book '%s'\n", book.title)
 	lib.books = append(lib.books, book)
 }
 
+// Method below is mimicking time consuming operation.
+// Method below is a Value receiver type.
+func (lib library) timeConsumingOperation() {
+	// `Sleep` to mimick ` time-consuming operation.
+	time.Sleep(5 * time.Millisecond)
+
+	// Check the number of books
+	fmt.Printf("Value receiver type. Found %d books.\n", len(lib.books))
+}
 func main() {
 	lib := library{}
 
-	fmt.Println(lib)
+	// Goroutine mimicking a time consuming operation.
+	go lib.timeConsumingOperation()
 
-	b := book{title: "Three little pigs"}
-	b.changeTitle("Blue Birds")
-	lib.addABook(b)
+	// Add 2 books
+	go lib.addABook(book{title: "Rain Rain Go Away"})
+	go lib.addABook(book{title: "Rainbow After Rain"})
 
-	fmt.Println(lib)
+	// `Sleep` to make sure all goroutines are completed
+	time.Sleep(2 * time.Second)
+
+	fmt.Printf("Actual number of books : %d books.\n", len(lib.books))
+
 }
