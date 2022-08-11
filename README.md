@@ -151,7 +151,8 @@ Actual number of books : 2 books.
 The use of pointer receiver type in struct methods is mandatory if we want data integrity. 
 Of course there are smaller number of cases where we need to use value receiver type.
 Modification of earlier example, with pointer receiver type on the `timeConsumingOperation`, can be seen below (added an asterisk(*)).
-```
+
+```Go
 func (lib *library) timeConsumingOperation() {
 ```
 Using pointer type in `timeConsumingOperation` will
